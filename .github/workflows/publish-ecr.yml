@@ -32,7 +32,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
       - name: Build the image
-        run: ./gradlew --no-daemon --console=plain :fineract-provider:clean :fineract-provider:build :fineract-provider:jibDockerBuild -x test -x cucumber
+        run : ./gradlew :fineract-provider:jibDockerBuild -x test
+#        run: ./gradlew --no-daemon --console=plain :fineract-provider:clean :fineract-provider:build :fineract-provider:jibDockerBuild -x test -x cucumber
       - name: Start the Standalone Stack
         run: docker compose -f docker-compose-postgresql.yml up -d
       - name: Wait for stack to come up
