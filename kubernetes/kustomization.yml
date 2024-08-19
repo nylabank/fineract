@@ -3,8 +3,8 @@ commonLabels:
 
 resources:
   # backend service
-  - kubernetes/nylabank-fineract/fineract-mifoscommunity-deployment.yml
-  - kubernetes/nylabank-fineract/fineract-server-deployment.yml
+  - nylabank-fineract/fineract-mifoscommunity-deployment.yml
+  - nylabank-fineract/fineract-server-deployment.yml
 
   # client
   - messagebroker-k8s/kafka.yml
