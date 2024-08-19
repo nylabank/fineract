@@ -1,0 +1,13 @@
+commonLabels:
+  app.kubernetes.io/genereted-by: fineract
+
+resources:
+  # backend service
+  - kubernetes/nylabank-fineract/fineract-mifoscommunity-deployment.yml
+  - kubernetes/nylabank-fineract/fineract-server-deployment.yml
+
+  # client
+  - messagebroker-k8s/kafka.yml
+  # monitoring prometheus
+
+patchesJson6902:

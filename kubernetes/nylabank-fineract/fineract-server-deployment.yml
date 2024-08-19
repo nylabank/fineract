@@ -84,33 +84,27 @@ spec:
         - name: FINERACT_NODE_ID
           value: '1'
         - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
-          value: org.mariadb.jdbc.Driver
+          value: org.postgresql.Driver
         - name: FINERACT_HIKARI_JDBC_URL
-          value: jdbc:mariadb://fineractmysql:3306/fineract_tenants
+          value: jdbc:postgresql://nylaapi-postgresql.default.svc.cluster.local:5432/fineract_tenants
         - name: FINERACT_HIKARI_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: fineract-tenants-db-secret
-              key: username
+          value: nylabankapi
         - name: FINERACT_HIKARI_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: fineract-tenants-db-secret
-              key: password
+              name: nylabankapi-postgresql
+              key: postgresql-password
         - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-          value: fineractmysql
+          value: nylaapi-postgresql.default.svc.cluster.local
         - name: FINERACT_DEFAULT_TENANTDB_PORT
-          value: '3306'
+          value: '5432'
         - name: FINERACT_DEFAULT_TENANTDB_UID
-          valueFrom:
-            secretKeyRef:
-              name: fineract-tenants-db-secret
-              key: username
+          value: nylabankapi
         - name: FINERACT_DEFAULT_TENANTDB_PWD
           valueFrom:
             secretKeyRef:
-              name: fineract-tenants-db-secret
-              key: password
+              name: nylabankapi-postgresql
+              key: postgresql-password
         - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
           value: ''
         - name: JAVA_TOOL_OPTIONS
