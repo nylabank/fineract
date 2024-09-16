@@ -30,6 +30,7 @@ import org.apache.fineract.portfolio.calendar.domain.CalendarInstance;
 import org.apache.fineract.portfolio.collectionsheet.command.CollectionSheetBulkDisbursalCommand;
 import org.apache.fineract.portfolio.collectionsheet.command.CollectionSheetBulkRepaymentCommand;
 import org.apache.fineract.portfolio.loanaccount.domain.Loan;
+import org.apache.fineract.portfolio.loanaccount.domain.LoanRepaymentScheduleInstallment;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTransaction;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTransactionType;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,19 @@ public interface LoanWritePlatformService {
     @Transactional
     CommandProcessingResult makeLoanRepaymentWithChargeRefundChargeType(LoanTransactionType repaymentTransactionType, Long loanId,
             JsonCommand command, boolean isRecoveryRepayment, String chargeRefundChargeType);
+
+    @Transactional
+    Loan reverseReplayAccrualActivityTransaction(Loan loan, LoanTransaction loanTransaction, LoanRepaymentScheduleInstallment installment,
+            LocalDate transactionDate);
+
+    @Transactional
+    Loan makeAccrualActivityTransaction(Loan loan, LoanRepaymentScheduleInstallment installment, LocalDate transactionDate);
+
+    @Transactional
+    Loan makeAccrualActivityTransaction(Loan loan, LoanTransaction accrualActivityTransaction);
+
+    @Transactional
+    CommandProcessingResult makeInterestPaymentWaiver(JsonCommand command);
 
     Map<String, Object> makeLoanBulkRepayment(CollectionSheetBulkRepaymentCommand bulkRepaymentCommand);
 
@@ -86,6 +100,9 @@ public interface LoanWritePlatformService {
     CommandProcessingResult undoWriteOff(Long loanId);
 
     CommandProcessingResult updateDisbursementDateAndAmountForTranche(Long loanId, Long disbursementId, JsonCommand command);
+
+    @Transactional
+    Loan recalculateInterest(Loan loan);
 
     CommandProcessingResult recoverFromGuarantor(Long loanId);
 

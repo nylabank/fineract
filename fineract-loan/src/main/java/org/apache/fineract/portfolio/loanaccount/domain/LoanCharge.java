@@ -60,7 +60,7 @@ import org.apache.fineract.portfolio.loanaccount.data.LoanInstallmentChargeData;
 
 @Entity
 @Table(name = "m_loan_charge", uniqueConstraints = { @UniqueConstraint(columnNames = { "external_id" }, name = "external_id") })
-public class LoanCharge extends AbstractAuditableWithUTCDateTimeCustom {
+public class LoanCharge extends AbstractAuditableWithUTCDateTimeCustom<Long> {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "loan_id", referencedColumnName = "id", nullable = false)
@@ -618,22 +618,12 @@ public class LoanCharge extends AbstractAuditableWithUTCDateTimeCustom {
 
     public boolean isDueForCollectionFromAndUpToAndIncluding(final LocalDate fromNotInclusive, final LocalDate upToAndInclusive) {
         final LocalDate dueDate = getDueLocalDate();
-        return occursOnDayFromExclusiveAndUpToAndIncluding(fromNotInclusive, upToAndInclusive, dueDate);
+        return DateUtils.occursOnDayFromExclusiveAndUpToAndIncluding(fromNotInclusive, upToAndInclusive, dueDate);
     }
 
     public boolean isDueForCollectionFromIncludingAndUpToAndIncluding(final LocalDate fromAndInclusive, final LocalDate upToAndInclusive) {
         final LocalDate dueDate = getDueLocalDate();
-        return occursOnDayFromAndUpToAndIncluding(fromAndInclusive, upToAndInclusive, dueDate);
-    }
-
-    private boolean occursOnDayFromExclusiveAndUpToAndIncluding(final LocalDate fromNotInclusive, final LocalDate upToAndInclusive,
-            final LocalDate target) {
-        return DateUtils.isAfter(target, fromNotInclusive) && !DateUtils.isAfter(target, upToAndInclusive);
-    }
-
-    private boolean occursOnDayFromAndUpToAndIncluding(final LocalDate fromAndInclusive, final LocalDate upToAndInclusive,
-            final LocalDate target) {
-        return target != null && !DateUtils.isBefore(target, fromAndInclusive) && !DateUtils.isAfter(target, upToAndInclusive);
+        return DateUtils.occursOnDayFromAndUpToAndIncluding(fromAndInclusive, upToAndInclusive, dueDate);
     }
 
     public boolean isFeeCharge() {

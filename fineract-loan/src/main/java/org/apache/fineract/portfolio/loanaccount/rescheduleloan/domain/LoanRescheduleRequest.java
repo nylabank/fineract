@@ -40,7 +40,7 @@ import org.apache.fineract.useradministration.domain.AppUser;
 
 @Entity
 @Table(name = "m_loan_reschedule_request")
-public class LoanRescheduleRequest extends AbstractPersistableCustom {
+public class LoanRescheduleRequest extends AbstractPersistableCustom<Long> {
 
     @ManyToOne
     @JoinColumn(name = "loan_id", nullable = false)
@@ -272,14 +272,15 @@ public class LoanRescheduleRequest extends AbstractPersistableCustom {
         return this.loanRescheduleRequestToTermVariationMappings;
     }
 
+    public LoanTermVariations getInterestRateFromInstallmentTermVariationIfExists() {
+        return this.loanRescheduleRequestToTermVariationMappings.stream()
+                .map(LoanRescheduleRequestToTermVariationMapping::getLoanTermVariations)
+                .filter(loanTermVariations -> loanTermVariations.getTermType().isInterestRateFromInstallment()).findFirst().orElse(null);
+    }
+
     public LoanTermVariations getDueDateTermVariationIfExists() {
-        if (this.loanRescheduleRequestToTermVariationMappings != null && this.loanRescheduleRequestToTermVariationMappings.size() > 0) {
-            for (LoanRescheduleRequestToTermVariationMapping mapping : this.loanRescheduleRequestToTermVariationMappings) {
-                if (mapping.getLoanTermVariations().getTermType().isDueDateVariation()) {
-                    return mapping.getLoanTermVariations();
-                }
-            }
-        }
-        return null;
+        return this.loanRescheduleRequestToTermVariationMappings.stream()
+                .map(LoanRescheduleRequestToTermVariationMapping::getLoanTermVariations)
+                .filter(loanTermVariations -> loanTermVariations.getTermType().isDueDateVariation()).findFirst().orElse(null);
     }
 }

@@ -27,6 +27,7 @@ import org.apache.fineract.infrastructure.core.data.CommandProcessingResultBuild
 import org.apache.fineract.infrastructure.core.domain.ExternalId;
 import org.apache.fineract.portfolio.delinquency.validator.LoanDelinquencyActionData;
 import org.apache.fineract.portfolio.loanaccount.data.HolidayDetailDTO;
+import org.apache.fineract.portfolio.loanaccount.data.LoanRefundRequestData;
 import org.apache.fineract.portfolio.paymentdetail.domain.PaymentDetail;
 
 public interface LoanAccountDomainService {
@@ -56,14 +57,6 @@ public interface LoanAccountDomainService {
     void updateLoanCollateralTransaction(Set<LoanCollateralManagement> loanCollateralManagementList);
 
     void updateLoanCollateralStatus(Set<LoanCollateralManagement> loanCollateralManagementSet, boolean isReleased);
-
-    /**
-     * This method is to recalculate and accrue the income till the last accrued date. this method is used when the
-     * schedule changes due to interest recalculation
-     *
-     * @param loan
-     */
-    void recalculateAccruals(Loan loan);
 
     /**
      * This method is to set a Delinquency Tag If the loan is overdue, If the loan after the repayment transaction is
@@ -98,10 +91,9 @@ public interface LoanAccountDomainService {
      */
     void disableStandingInstructionsLinkedToClosedLoan(Loan loan);
 
-    void recalculateAccruals(Loan loan, boolean isInterestCalcualtionHappened);
-
     LoanTransaction creditBalanceRefund(Loan loan, LocalDate transactionDate, BigDecimal transactionAmount, String noteText,
             ExternalId externalId, PaymentDetail paymentDetail);
 
-    void applyFinalIncomeAccrualTransaction(Loan loan);
+    LoanTransaction applyInterestRefund(Loan loan, LoanRefundRequestData loanRefundRequest);
+
 }
