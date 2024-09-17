@@ -74,22 +74,22 @@ spec:
           env:
             - name: FINERACT_NODE_ID
               value: '1'
-            # - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
-            #   value: org.postgresql.Driver
-            # - name: FINERACT_HIKARI_JDBC_URL
-            #   value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
-            # - name: FINERACT_HIKARI_USERNAME
-            #   value: nylabankapi
-            # - name: FINERACT_HIKARI_PASSWORD
-            #   value: nylabank
-            # - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-            #   value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
-            # - name: FINERACT_DEFAULT_TENANTDB_PORT
-            #   value: '5432'
-            # - name: FINERACT_DEFAULT_TENANTDB_UID
-            #   value: nylabank
-            # - name: FINERACT_DEFAULT_TENANTDB_PWD
-            #   value: nylabank
+            - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
+              value: org.postgresql.Driver
+            - name: FINERACT_HIKARI_JDBC_URL
+              value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
+            - name: FINERACT_HIKARI_USERNAME
+              value: nylabankapi
+            - name: FINERACT_HIKARI_PASSWORD
+              value: nylabank
+            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+              value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
+            - name: FINERACT_DEFAULT_TENANTDB_PORT
+              value: '5432'
+            - name: FINERACT_DEFAULT_TENANTDB_UID
+              value: nylabank
+            - name: FINERACT_DEFAULT_TENANTDB_PWD
+              value: nylabank
             # - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
             #   value: ''
             # - name: JAVA_TOOL_OPTIONS
