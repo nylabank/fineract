@@ -74,6 +74,8 @@ spec:
           env:
             - name: FINERACT_NODE_ID
               value: '1'
+            - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
+              value: org.postgresql.Driver
             - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
               value: org.postgresql.Driver
             - name: FINERACT_HIKARI_JDBC_URL
