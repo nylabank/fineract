@@ -81,7 +81,7 @@ spec:
             - name: FINERACT_HIKARI_JDBC_URL
               value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
             - name: FINERACT_HIKARI_USERNAME
-              value: nylabankapi
+              value: nylabank
             - name: FINERACT_HIKARI_PASSWORD
               value: nylabank
             - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
