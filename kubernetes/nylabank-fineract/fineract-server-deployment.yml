@@ -83,7 +83,7 @@ spec:
             - name: FINERACT_HIKARI_USERNAME
               value: nylabank
             - name: FINERACT_HIKARI_PASSWORD
-              value: nylabank
+              value: password
             - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
               value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
             - name: FINERACT_DEFAULT_TENANTDB_PORT
@@ -91,7 +91,7 @@ spec:
             - name: FINERACT_DEFAULT_TENANTDB_UID
               value: nylabank
             - name: FINERACT_DEFAULT_TENANTDB_PWD
-              value: nylabank
+              value: password
             # - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
             #   value: ''
             # - name: JAVA_TOOL_OPTIONS
