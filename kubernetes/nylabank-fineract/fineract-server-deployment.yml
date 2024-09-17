@@ -25,9 +25,9 @@ metadata:
   name: fineract-server
 spec:
   ports:
-  - protocol: TCP
-    port: 8443
-    targetPort: 8443
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
   selector:
     app: fineract-server
     tier: backend
@@ -59,57 +59,44 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'echo -e "Checking for the availability of MYSQL server deployment"; while ! nc -z "fineractmysql" 3306; do sleep 1; printf "-"; done; echo -e " >> MYSQL server has started";']
       containers:
-      - name: fineract-server
-        image: 992382518400.dkr.ecr.us-east-1.amazonaws.com/nylabank-fineract-ecr:latest
-        imagePullPolicy: Always
-        # resources:
-        #   limits:
-        #     cpu: "1000m"
-        #     memory: "1Gi"
-        #   requests:
-        #     cpu: "200m"
-        #     memory: "0.5Gi"
-        livenessProbe:
-          httpGet:
-            path: /fineract-provider/actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 180
-          periodSeconds: 1
-        readinessProbe:
-          httpGet:
-            path: /fineract-provider/actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 180
-          periodSeconds: 1
-        env:
-        - name: FINERACT_NODE_ID
-          value: '1'
-        - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
-          value: org.postgresql.Driver
-        - name: FINERACT_HIKARI_JDBC_URL
-          value: jdbc:postgresql://nylaapi-postgresql.default.svc.cluster.local:5432/fineract_tenants
-        - name: FINERACT_HIKARI_USERNAME
-          value: nylabankapi
-        - name: FINERACT_HIKARI_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nylabankapi-postgresql
-              key: postgresql-password
-        - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-          value: nylaapi-postgresql.default.svc.cluster.local
-        - name: FINERACT_DEFAULT_TENANTDB_PORT
-          value: '5432'
-        - name: FINERACT_DEFAULT_TENANTDB_UID
-          value: nylabankapi
-        - name: FINERACT_DEFAULT_TENANTDB_PWD
-          valueFrom:
-            secretKeyRef:
-              name: nylabankapi-postgresql
-              key: postgresql-password
-        - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
-          value: ''
-        - name: JAVA_TOOL_OPTIONS
-          value: '-Xmx1G'
-        ports:
-        - containerPort: 8443
-          name: fineract-server
+        - name: fineract-server
+          image: 992382518400.dkr.ecr.us-east-1.amazonaws.com/nylabank-fineract-ecr:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /fineract-provider/actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /fineract-provider/actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 1
+          env:
+            - name: FINERACT_NODE_ID
+              value: '1'
+            - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
+              value: org.postgresql.Driver
+            - name: FINERACT_HIKARI_JDBC_URL
+              value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
+            - name: FINERACT_HIKARI_USERNAME
+              value: nylabankapi
+            - name: FINERACT_HIKARI_PASSWORD
+              value: nylabank
+            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+              value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
+            - name: FINERACT_DEFAULT_TENANTDB_PORT
+              value: '5432'
+            - name: FINERACT_DEFAULT_TENANTDB_UID
+              value: nylabank
+            - name: FINERACT_DEFAULT_TENANTDB_PWD
+              value: nylabank
+            - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
+              value: ''
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Xmx1G'
+          ports:
+            - containerPort: 8443
+              name: fineract-server
