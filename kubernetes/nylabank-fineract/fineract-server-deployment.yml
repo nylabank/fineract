@@ -17,21 +17,21 @@
 #
 
 
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: fineract-server
-  name: fineract-server
-spec:
-  ports:
-    - protocol: TCP
-      port: 8443
-  selector:
-    app: fineract-server
-  type: ClusterIP
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: fineract-server
+#   name: fineract-server
+# spec:
+#   ports:
+#     - protocol: TCP
+#       port: 8443
+#   selector:
+#     app: fineract-server
+#   type: ClusterIP
 
----
+# ---
 
 apiVersion: apps/v1
 kind: Deployment
@@ -59,41 +59,41 @@ spec:
         - name: fineract-server
           image: 992382518400.dkr.ecr.us-east-1.amazonaws.com/nylabank-fineract-ecr:latest
           imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /fineract-provider/actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 180
-            periodSeconds: 1
-          readinessProbe:
-            httpGet:
-              path: /fineract-provider/actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 180
-            periodSeconds: 1
+          # livenessProbe:
+          #   httpGet:
+          #     path: /fineract-provider/actuator/health/liveness
+          #     port: 8080
+          #   initialDelaySeconds: 180
+          #   periodSeconds: 1
+          # readinessProbe:
+          #   httpGet:
+          #     path: /fineract-provider/actuator/health/readiness
+          #     port: 8080
+          #   initialDelaySeconds: 180
+          #   periodSeconds: 1
           env:
             - name: FINERACT_NODE_ID
               value: '1'
-            - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
-              value: org.postgresql.Driver
-            - name: FINERACT_HIKARI_JDBC_URL
-              value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
-            - name: FINERACT_HIKARI_USERNAME
-              value: nylabankapi
-            - name: FINERACT_HIKARI_PASSWORD
-              value: nylabank
-            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-              value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
-            - name: FINERACT_DEFAULT_TENANTDB_PORT
-              value: '5432'
-            - name: FINERACT_DEFAULT_TENANTDB_UID
-              value: nylabank
-            - name: FINERACT_DEFAULT_TENANTDB_PWD
-              value: nylabank
-            - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
-              value: ''
-            - name: JAVA_TOOL_OPTIONS
-              value: '-Xmx1G'
+            # - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
+            #   value: org.postgresql.Driver
+            # - name: FINERACT_HIKARI_JDBC_URL
+            #   value: jdbc:postgresql://nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com:5432/fineract_tenants
+            # - name: FINERACT_HIKARI_USERNAME
+            #   value: nylabankapi
+            # - name: FINERACT_HIKARI_PASSWORD
+            #   value: nylabank
+            # - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+            #   value: nylabank-db-instance.c9cgwcse6vb2.us-east-1.rds.amazonaws.com
+            # - name: FINERACT_DEFAULT_TENANTDB_PORT
+            #   value: '5432'
+            # - name: FINERACT_DEFAULT_TENANTDB_UID
+            #   value: nylabank
+            # - name: FINERACT_DEFAULT_TENANTDB_PWD
+            #   value: nylabank
+            # - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
+            #   value: ''
+            # - name: JAVA_TOOL_OPTIONS
+            #   value: '-Xmx1G'
           ports:
             - containerPort: 8443
               name: fineract-server
