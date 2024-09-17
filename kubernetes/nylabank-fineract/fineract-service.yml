@@ -1,15 +1,33 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: fineract-server
   labels:
     app: fineract-server
-  name: fineract-server
+    app.kubernetes.io/instance: fineract-server
 spec:
-  ports:
-  - protocol: TCP
-    port: 8443
-    targetPort: 8443
   selector:
     app: fineract-server
     tier: backend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
   type: ClusterIP
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: fineract-server
+#   name: fineract-server
+# spec:
+#   ports:
+#   - protocol: TCP
+#     port: 8443
+#     targetPort: 8443
+#   selector:
+#     app: fineract-server
+#     tier: backend
+#   type: ClusterIP
