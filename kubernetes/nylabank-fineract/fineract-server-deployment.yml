@@ -27,10 +27,8 @@ spec:
   ports:
     - protocol: TCP
       port: 8443
-      targetPort: 8443
   selector:
     app: fineract-server
-    tier: backend
   type: ClusterIP
 
 ---
